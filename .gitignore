@@ -1,0 +1,25 @@
+# Maven
+backend/target/
+backend/*.iml
+backend/.mvn/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Flutter
+frontend/.dart_tool/
+frontend/.packages
+frontend/.pub-cache/
+frontend/.pub/
+frontend/build/
+frontend/*.iml
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/pubspec.lock
+frontend/.metadata
+
+# OS
+.DS_Store
+*.log
