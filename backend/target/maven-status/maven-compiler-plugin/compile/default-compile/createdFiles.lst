@@ -1,0 +1,5 @@
+com/workout/app/config/CorsConfig.class
+com/workout/app/repository/WorkoutRepository.class
+com/workout/app/WorkoutApplication.class
+com/workout/app/entity/Workout.class
+com/workout/app/controller/WorkoutController.class
