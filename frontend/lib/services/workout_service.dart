@@ -12,7 +12,7 @@ class WorkoutService {
       final List<dynamic> jsonList = json.decode(response.body);
       return jsonList.map((json) => Workout.fromJson(json)).toList();
     } else {
-      throw Exception('Failed to load workouts');
+      throw Exception('Failed to load workouts: ${response.statusCode} - ${response.body}');
     }
   }
 
@@ -26,7 +26,7 @@ class WorkoutService {
     if (response.statusCode == 200 || response.statusCode == 201) {
       return Workout.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to create workout');
+      throw Exception('Failed to create workout: ${response.statusCode} - ${response.body}');
     }
   }
 
@@ -34,7 +34,7 @@ class WorkoutService {
     final response = await http.delete(Uri.parse('$baseUrl/$id'));
 
     if (response.statusCode != 204 && response.statusCode != 200) {
-      throw Exception('Failed to delete workout');
+      throw Exception('Failed to delete workout: ${response.statusCode} - ${response.body}');
     }
   }
 }

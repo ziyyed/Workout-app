@@ -94,21 +94,38 @@ class _HomeScreenState extends State<HomeScreen> {
                 final sets = int.tryParse(setsController.text) ?? 0;
                 final reps = int.tryParse(repsController.text) ?? 0;
 
-                if (name.isNotEmpty && sets > 0 && reps > 0) {
-                  try {
-                    await _workoutService.createWorkout(
-                      Workout(name: name, sets: sets, reps: reps),
+                if (name.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Please enter a workout name')),
+                  );
+                  return;
+                }
+                if (sets <= 0) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Sets must be greater than 0')),
+                  );
+                  return;
+                }
+                if (reps <= 0) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Reps must be greater than 0')),
+                  );
+                  return;
+                }
+
+                try {
+                  await _workoutService.createWorkout(
+                    Workout(name: name, sets: sets, reps: reps),
+                  );
+                  if (mounted) {
+                    Navigator.pop(context);
+                    _loadWorkouts();
+                  }
+                } catch (e) {
+                  if (mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Failed to add workout: $e')),
                     );
-                    if (mounted) {
-                      Navigator.pop(context);
-                      _loadWorkouts();
-                    }
-                  } catch (e) {
-                    if (mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Failed to add workout: $e')),
-                      );
-                    }
                   }
                 }
               },
